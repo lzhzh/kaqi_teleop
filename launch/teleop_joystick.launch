@@ -1,0 +1,41 @@
+<launch>
+
+    <!-- Velocity smoother -->
+    <include file="$(find kaqi_teleop)/launch/velocity_smoother.launch.xml" />
+
+    <!-- Bring up the mux that will switch between teleop and navigation commands. TODO: When mux is fixed, remove slash infront of topic names so that things can be pushed into a namespace -->
+    <node pkg="topic_tools" type="mux" name="cmd_vel_mux" respawn="true" output="screen" args="base_controller/command /navigation/cmd_vel /teleop/cmd_vel">
+        <remap from="mux" to="cmd_vel_mux" />
+    </node>
+
+    <node pkg="kaqi_teleop" type="teleop_kaqi" name="teleop_kaqi" args="--deadman_no_publish" output="screen" respawn="true">
+        <!-- Remap topic -->
+        <remap from="cmd_vel" to="teleop/raw_cmd_vel" />
+
+        <!-- Mux stuff -->
+        <remap from="mux" to="cmd_vel_mux" />
+        <param name="use_mux" value="true" type="bool" />
+        <param name="mux_teleop_topic" value="teleop/cmd_vel" />
+
+        <!-- Axes -->
+        <param name="axis_vx" value="1" type="int"/>
+        <param name="axis_vy" value="3" type="int"/>
+        <param name="axis_vw" value="0" type="int"/>
+
+        <!-- Base velocities -->
+        <param name="max_vx" value="0.4" />
+        <param name="max_vy" value="0.0" />
+        <param name="max_vw" value="1.0" />
+        <param name="max_vx_run" value="0.6" />
+        <param name="max_vy_run" value="0.0" />
+        <param name="max_vw_run" value="1.6" />
+
+        <param name="joy_msg_timeout" value="-1"/>
+
+        <!-- Buttons have changed for PS3 controller mapping -->
+        <!-- With joystick remapper, this works with all joysticks on "/joy" -->
+        <param name="deadman_button" value="10" type="int"/>
+        <param name="run_button" value="11" type="int" />
+    </node>
+
+</launch>
