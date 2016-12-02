@@ -1,0 +1,1 @@
+sudo bash -c "source ~/.bashrc; $(rospack find kaqi_teleop)/scripts/ps3joy.py --inactivity-timeout=300 --continuous-output"
