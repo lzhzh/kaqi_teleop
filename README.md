@@ -14,7 +14,7 @@ sudo apt-get install ros-indigo-joystick-drivers
 ```
 
 #2. Teleop via keyboard
-## Open a new terminal, run the following command. Keep current terminal active while doing tele-operation.
+Open a new terminal, run the following command. Keep current terminal active while doing tele-operation.
 ```
 roslaunch kaqi_teleop teleop_keyboard.launch
 ```
@@ -23,12 +23,12 @@ roslaunch kaqi_teleop teleop_keyboard.launch
 
 See http://wiki.ros.org/ps3joy?distro=indigo to pair you Bluetooth adapter with ps3 joystick.
 
-1. Start ps3 driver, root permission is required.
+##1. Start ps3 driver, root permission is required.
 ```
 rosrun kaqi_teleop start_ps3
 ```
 
-2. Start joy driver.
+##2. Start joy driver.
 ```
 rosrun joy joy_node
 ```
@@ -41,7 +41,7 @@ Alternately, you can use the following script in your launch file.
     </node>
 ```
 
-3. Launch the teleop node
+##3. Launch the teleop node
 ```
 roslaunch kaqi_teleop teleop_joystick.launch
 ```
