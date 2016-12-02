@@ -15,9 +15,11 @@ sudo apt-get install ros-indigo-joystick-drivers
 
 ### Make sure that the 'mobile_base_nodelet_manager' is running
 If you need to control other robot, put the following script in your bringup launch file
-'''
+```
+<launch>
     <node pkg="nodelet" type="nodelet" name="mobile_base_nodelet_manager" args="manager"/>
-'''
+</launch>
+```
 
 #2. Teleop via keyboard
 Open a new terminal, run the following command. Keep current terminal active while doing tele-operation.
