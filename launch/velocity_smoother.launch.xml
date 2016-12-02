@@ -1,0 +1,23 @@
+<!-- 
+         Velocity smoother for Teleop
+-->
+<launch>
+
+  <!--  smooths inputs from cmd_vel_mux/input/teleop_raw to cmd_vel_mux/input/teleop -->
+  <node pkg="nodelet" type="nodelet" name="teleop_velocity_smoother" args="load yocs_velocity_smoother/VelocitySmootherNodelet /mobile_base_nodelet_manager">
+    <param name="speed_lim_v" value="0.8" />
+    <param name="speed_lim_w" value="1.2" />
+    <param name="accel_lim_v" value="1.0" />
+    <param name="accel_lim_w" value="2.0" />
+    <param name="frequency" value="20" />
+    <param name="decel_factor" value="1.6" />
+    <param name="robot_feedback" value="2" />
+
+    <remap from="teleop_velocity_smoother/raw_cmd_vel" to="teleop/raw_cmd_vel"/>
+    <remap from="teleop_velocity_smoother/smooth_cmd_vel" to="teleop/cmd_vel"/>
+    <!-- Robot velocity feedbacks; use the one configured as base default -->
+    <remap from="teleop_velocity_smoother/odometry" to="/odom"/>
+    <remap from="teleop_velocity_smoother/robot_cmd_vel" to="base_controller/command"/>
+  </node>
+
+</launch>
